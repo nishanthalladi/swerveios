@@ -3,6 +3,17 @@ set -e
 
 echo "[CI SCRIPT] Starting post-xcodebuild versioning..."
 
+echo "[DEBUG] CI_PRIMARY_REPOSITORY_PATH is set to: $CI_PRIMARY_REPOSITORY_PATH"
+
+echo "[DEBUG] Contents of $CI_PRIMARY_REPOSITORY_PATH/ci_scripts:"
+ls -la "$CI_PRIMARY_REPOSITORY_PATH/ci_scripts"
+
+echo "[DEBUG] Contents of $CI_PRIMARY_REPOSITORY_PATH:"
+ls -la "$CI_PRIMARY_REPOSITORY_PATH"
+
+echo "[DEBUG] Contents of $CI_PRIMARY_REPOSITORY_PATH/swerveios:"
+ls -la "$CI_PRIMARY_REPOSITORY_PATH/swerveios"
+
 PLIST_PATH="${CI_PRIMARY_REPOSITORY_PATH}/ci_scripts/Info.plist"
 
 if [ ! -f "$PLIST_PATH" ]; then
