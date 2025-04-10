@@ -14,7 +14,8 @@ ls -la "$CI_PRIMARY_REPOSITORY_PATH"
 echo "[DEBUG] Contents of $CI_PRIMARY_REPOSITORY_PATH/swerveios:"
 ls -la "$CI_PRIMARY_REPOSITORY_PATH/swerveios"
 
-PLIST_PATH="${CI_PRIMARY_REPOSITORY_PATH}/ci_scripts/Info.plist"
+#PLIST_PATH="${CI_PRIMARY_REPOSITORY_PATH}/ci_scripts/Info.plist"
+PLIST_PATH="${CI_PRIMARY_REPOSITORY_PATH}/swerveios/Info.plist"
 
 if [ ! -f "$PLIST_PATH" ]; then
     echo "[ERROR] Info.plist not found at $PLIST_PATH"
