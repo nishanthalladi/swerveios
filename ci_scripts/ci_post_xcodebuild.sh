@@ -3,7 +3,7 @@ set -e
 
 echo "[CI SCRIPT] Starting post-xcodebuild versioning..."
 
-PLIST_PATH="Info.plist"
+PLIST_PATH="${CI_PRIMARY_REPOSITORY_PATH}/ci_scripts/Info.plist"
 
 if [ ! -f "$PLIST_PATH" ]; then
     echo "[ERROR] Info.plist not found at $PLIST_PATH"
