@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "1540"
+   version = "1.7">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "868645012C721F0000420503"
+               BuildableName = "swerveios.app"
+               BlueprintName = "swerveios"
+               ReferencedContainer = "container:swerveios.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "868645012C721F0000420503"
+            BuildableName = "swerveios.app"
+            BlueprintName = "swerveios"
+            ReferencedContainer = "container:swerveios.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "868645012C721F0000420503"
+            BuildableName = "swerveios.app"
+            BlueprintName = "swerveios"
+            ReferencedContainer = "container:swerveios.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;#!/bin/bash&#10;&#10;# Ensure we&apos;re in the project root&#10;cd &quot;${CI_PRIMARY_REPOSITORY_PATH}&quot;&#10;&#10;# Path to your Info.plist&#10;plist=&quot;swerveios/Info.plist&quot;  # Update this if your Info.plist is elsewhere&#10;&#10;# Only run if the build was successful&#10;if [ &quot;$CI_SUCCESS&quot; = &quot;true&quot; ]; then&#10;    echo &quot;Build succeeded. Bumping version and build.&quot;&#10;&#10;    # 1. Bump build number (CFBundleVersion)&#10;    agvtool bump&#10;&#10;    # 2. Bump version number (CFBundleShortVersionString)&#10;    current_version=$(/usr/libexec/PlistBuddy -c &quot;Print CFBundleShortVersionString&quot; &quot;$plist&quot;)&#10;&#10;    # Split version into major and minor&#10;    IFS=&apos;.&apos; read -r major minor &lt;&lt;&lt; &quot;$current_version&quot;&#10;&#10;    # Increment minor version&#10;    new_minor=$((minor + 1))&#10;    new_version=&quot;${major}.${new_minor}&quot;&#10;&#10;    # Apply new version&#10;    agvtool new-marketing-version &quot;$new_version&quot;&#10;&#10;    echo &quot;Version updated: $current_version &#x2192; $new_version&quot;&#10;else&#10;    echo &quot;Build failed. Skipping version and build bump.&quot;&#10;fi&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "868645012C721F0000420503"
+                     BuildableName = "swerveios.app"
+                     BlueprintName = "swerveios"
+                     ReferencedContainer = "container:swerveios.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
+   </ArchiveAction>
+</Scheme>
