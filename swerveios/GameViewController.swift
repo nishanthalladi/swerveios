@@ -1,42 +1,34 @@
-//
-//  GameViewController.swift
-//  swerveios
-//
-//  Created by nishu on 8/18/24.
-//
-
 import UIKit
 import SpriteKit
-import GameplayKit
+import CoreMotion
 
 class GameViewController: UIViewController {
+    var scene: GameScene?
+    let sensitivitySlider = UISlider()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let skView = SKView(frame: self.view.frame)
+        skView.ignoresSiblingOrder = true  // Optimizes rendering performance
+        self.view.addSubview(skView)
+        scene = GameScene(size: skView.bounds.size)
+        scene?.scaleMode = .resizeFill
+        skView.presentScene(scene)
         
-        if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
+//        setupSliders()
+    }
+    
+    func setupSliders() {
+        sensitivitySlider.frame = CGRect(x: 20, y: view.frame.height - 100, width: view.frame.width - 40, height: 30)
+        sensitivitySlider.minimumValue = 0
+        sensitivitySlider.maximumValue = 200
+        sensitivitySlider.value = 100
+        sensitivitySlider.addTarget(self, action: #selector(sensitivityValueChanged(_:)), for: .valueChanged)
+        view.addSubview(sensitivitySlider)
     }
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
+    @objc func sensitivityValueChanged(_ sender: UISlider) {
+        scene?.sensitivity = CGFloat(sender.value)
     }
 
     override var prefersStatusBarHidden: Bool {
