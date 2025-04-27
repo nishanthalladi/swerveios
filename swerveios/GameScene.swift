@@ -85,9 +85,16 @@ class GameScene: SKScene {
     var calibrationX: Double = 0.0
     var calibrationY: Double = 0.0
     
+    var playerColor: UIColor = .white
+    
     enum ItemSlot {
         case up, down, left, right
     }
+    
+    let playerColors: [UIColor] = [
+        .white, .red, .green, .blue, .yellow, .orange,
+        .purple, .cyan, .magenta, .brown, .black, .systemTeal
+    ]
 
     
     // UI elements
@@ -134,6 +141,12 @@ class GameScene: SKScene {
            let savedCalibrationY = UserDefaults.standard.object(forKey: "calibrationY") as? Double {
             calibrationX = savedCalibrationX
             calibrationY = savedCalibrationY
+        }
+        // Load saved player color
+        if let savedColorIndex = UserDefaults.standard.object(forKey: "playerColorIndex") as? Int {
+            if savedColorIndex >= 0 && savedColorIndex < playerColors.count {
+                playerColor = playerColors[savedColorIndex]
+            }
         }
         spawnAsteroids(count: 5)
         setupShield()
@@ -233,7 +246,7 @@ class GameScene: SKScene {
         label.numberOfLines = 0
         label.verticalAlignmentMode = .top
         label.horizontalAlignmentMode = .center
-        label.position = .zero
+        label.position = CGPoint(x: 0, y: 180)
         label.zPosition = 102
         popup.addChild(label)
         
@@ -249,18 +262,21 @@ class GameScene: SKScene {
         sensitivityLabel.fontColor = .white
         sensitivityLabel.verticalAlignmentMode = .center
         sensitivityLabel.horizontalAlignmentMode = .center
-        sensitivityLabel.position = CGPoint(x: 0, y: 70)
-//        sensitivityLabel.position = .zero
+        sensitivityLabel.position = CGPoint(x: 0, y: 80)
+        //        sensitivityLabel.position = .zero
         popup.addChild(sensitivityLabel)
         
         let calibrateButton = SKLabelNode(fontNamed: "Impact")
-        calibrateButton.text = "Set Flat"
+        calibrateButton.text = "Set As Flat"
         calibrateButton.name = "calibrateButton"
         calibrateButton.fontSize = 22
         calibrateButton.fontColor = .white
-        calibrateButton.position = CGPoint(x: 0, y: -100) // Under the slider
+        calibrateButton.position = CGPoint(x: 0, y: 0) // Under the slider
         calibrateButton.zPosition = 102
         popup.addChild(calibrateButton)
+        
+        // Add color picker buttons
+        setupColorPicker(in: popup)
         
         if let skView = self.view {
             skView.addSubview(slider)
@@ -271,6 +287,28 @@ class GameScene: SKScene {
         infoPopup = popup
         addChild(infoPopup)
     }
+
+    func setupColorPicker(in popup: SKShapeNode) {
+        let spacingX: CGFloat = 40
+        let spacingY: CGFloat = 40
+        let startX = -spacingX * 2.5
+        let startY: CGFloat = -110
+        
+        for (index, color) in playerColors.enumerated() {
+            let button = SKShapeNode(circleOfRadius: 15)
+            button.fillColor = color
+            button.strokeColor = .clear
+            let column = index % 6
+            let row = index / 6
+            button.position = CGPoint(
+                x: startX + spacingX * CGFloat(column),
+                y: startY - spacingY * CGFloat(row)
+            )
+            button.name = "color_\(index)"
+            button.zPosition = 102
+            popup.addChild(button)
+        }
+    }
     
     @objc func sensitivitySliderChanged(_ sender: UISlider) {
         self.sensitivity = CGFloat(sender.value)
@@ -279,7 +317,7 @@ class GameScene: SKScene {
     
     func setupPlayer() {
         player = createPlayer(size: 8)
-        player.fillColor = .blue
+        player.fillColor = playerColor
         player.strokeColor = .white
         player.lineWidth = 3
         player.position = CGPoint(x: size.width / 2, y: size.height / 2)
@@ -445,9 +483,9 @@ class GameScene: SKScene {
     
     func updateParry() {
         if parryActive {
-            player.fillColor = .white
+            player.fillColor = playerColor
         } else {
-            player.fillColor = .blue
+            player.fillColor = playerColor
         }
         
         if score - lastParryActivationFrame > parryFrames {
@@ -507,6 +545,19 @@ class GameScene: SKScene {
         if tappedNodes.contains(where: { $0.name == "calibrateButton" }) {
             calibrateAccelerometer()
             return
+        }
+
+        // Color picker tap handling
+        for node in tappedNodes {
+            if let name = node.name, name.starts(with: "color_") {
+                let indexString = name.replacingOccurrences(of: "color_", with: "")
+                if let index = Int(indexString) {
+                    playerColor = playerColors[index]
+                    player.fillColor = playerColor
+                    UserDefaults.standard.set(index, forKey: "playerColorIndex")
+                }
+                return
+            }
         }
 
         if !infoPopup.isHidden && !infoPopup.contains(end) {
@@ -1141,14 +1192,12 @@ class GameScene: SKScene {
             SKAction.wait(forDuration: 0.25)
         ])
         player.run(SKAction.repeatForever(glow), withKey: "starGlow")
-
-        player.fillColor = .yellow
     }
 
     func removeStarVisuals() {
         player.removeAction(forKey: "starGlow")
         player.strokeColor = .white
-        player.fillColor = .black
+        player.fillColor = playerColor
     }
  
     func dropWhirlpool() {
