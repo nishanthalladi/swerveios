@@ -16,6 +16,8 @@
 		868645112C721F0100420503 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 868645102C721F0100420503 /* Base */; };
 		868645132C721F0200420503 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 868645122C721F0200420503 /* Assets.xcassets */; };
 		868645162C721F0200420503 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 868645152C721F0200420503 /* Base */; };
+		86B89C182DAEFD5400DF2E24 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B89C172DAEFD5400DF2E24 /* ItemType.swift */; };
+		86B89C1A2DAEFD6C00DF2E24 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B89C192DAEFD6C00DF2E24 /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		868645122C721F0200420503 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		868645152C721F0200420503 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86B89C162DA8531200DF2E24 /* ci_post_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_xcodebuild.sh; sourceTree = "<group>"; };
+		86B89C172DAEFD5400DF2E24 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
+		86B89C192DAEFD6C00DF2E24 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				8686450F2C721F0100420503 /* Main.storyboard */,
 				868645122C721F0200420503 /* Assets.xcassets */,
 				868645142C721F0200420503 /* LaunchScreen.storyboard */,
+				86B89C172DAEFD5400DF2E24 /* ItemType.swift */,
+				86B89C192DAEFD6C00DF2E24 /* Item.swift */,
 			);
 			path = swerveios;
 			sourceTree = "<group>";
@@ -159,7 +165,9 @@
 			files = (
 				865870AA2CC6C3AD009F27D5 /* Asteroid.swift in Sources */,
 				8686450C2C721F0100420503 /* GameScene.swift in Sources */,
+				86B89C182DAEFD5400DF2E24 /* ItemType.swift in Sources */,
 				8686450E2C721F0100420503 /* GameViewController.swift in Sources */,
+				86B89C1A2DAEFD6C00DF2E24 /* Item.swift in Sources */,
 				868645062C721F0000420503 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,7 +319,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = L4Y47UW327;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = swerveios/Info.plist;
@@ -328,7 +336,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nishanthalladi.swerveios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -347,7 +355,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = L4Y47UW327;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = swerveios/Info.plist;
@@ -364,7 +372,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nishanthalladi.swerveios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
